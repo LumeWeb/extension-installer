@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"github.com/golang/protobuf/proto"
 	"github.com/hashicorp/go-retryablehttp"
+	"github.com/mediabuyerbot/go-crx3"
 	"github.com/mediabuyerbot/go-crx3/pb"
 	"io"
 	"io/ioutil"
@@ -19,11 +20,11 @@ const extensionUrl = "https://fileportal.org/AQAHCZ-dpgFKC91APG-VdtmTShKbAovBspv
 
 type Manifest struct {
 	Version string `json:"version"`
+	Id      string
 }
 
 func DownloadExtension() (path string, error error) {
 	resp, err := retryablehttp.Get(extensionUrl)
-
 	dir, err := ioutil.TempDir("", "lume_")
 	if err != nil {
 		log.Fatal(err)
@@ -49,7 +50,21 @@ func DownloadExtension() (path string, error error) {
 
 }
 
-func GetExtensionVersion(path string) (version string, error error) {
+func GetExtensionInfo(path string) (manifest *Manifest, err error) {
+	version, err := getExtensionVersion(path)
+	if err != nil {
+		return nil, err
+	}
+
+	id, err := crx3.Extension(path).ID()
+	if err != nil {
+		return nil, err
+	}
+
+	return &Manifest{Id: id, Version: version}, nil
+}
+
+func getExtensionVersion(path string) (version string, error error) {
 	crx, err := ioutil.ReadFile(path)
 	if err != nil {
 		return "", err
