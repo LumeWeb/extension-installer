@@ -163,7 +163,7 @@ func deleteProfileUninstallSetting(extensionId string, vendorName string, vendor
 
 	foundExtIndex := slices.Index(newUninstalls, extensionId)
 
-	newUninstalls = slices.Delete(newUninstalls, foundExtIndex, foundExtIndex+1)
+	slices.Delete(newUninstalls, foundExtIndex, foundExtIndex+1)
 
 	prefFile, _ = sjson.SetBytes(prefFile, uninstallPath, newUninstalls)
 	ioutil.WriteFile(profilePrefLocation, prefFile, fs.ModePerm)
