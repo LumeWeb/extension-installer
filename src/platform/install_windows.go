@@ -127,7 +127,7 @@ func maybeCreateKey(path string, ret bool) (retkey *registry.Key, error error) {
 		return &key, nil
 	}
 
-	key.Close()
+	_ = key.Close()
 	return nil, nil
 }
 
