@@ -166,10 +166,12 @@ func deleteProfileUninstallSetting(extensionId string, vendorName string, vendor
 
 	foundExtIndex := slices.Index(newUninstalls, extensionId)
 
-	slices.Delete(newUninstalls, foundExtIndex, foundExtIndex+1)
+	newUninstalls[foundExtIndex] = newUninstalls[len(newUninstalls)-1]
+	newUninstalls[len(newUninstalls)-1] = ""
+	newUninstalls = newUninstalls[:len(newUninstalls)-1]
 
 	prefFile, _ = sjson.SetBytes(prefFile, uninstallPath, newUninstalls)
-	ioutil.WriteFile(profilePrefLocation, prefFile, fs.ModePerm)
+	_ = ioutil.WriteFile(profilePrefLocation, prefFile, fs.ModePerm)
 }
 
 func fileExists(name string) (bool, error) {
