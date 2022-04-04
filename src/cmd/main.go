@@ -9,6 +9,10 @@ import (
 )
 
 func main() {
+	if !platform.IsRunningAsAdmin() {
+		platform.RunAsAdmin()
+		os.Exit(0)
+	}
 	platform.SetConsoleTitle("Lume Web Installer")
 	fmt.Println("Welcome to the Lume Web Extension Installer! A pretty UX is coming soon...")
 	fmt.Println("")
