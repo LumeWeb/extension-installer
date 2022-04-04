@@ -2,9 +2,9 @@ package platform
 
 import (
 	"bufio"
+	"extension-installer/src/shared"
 	"fmt"
 	"github.com/admin100/util/console"
-	"github.com/lumeweb/extension-installer/src/shared"
 	"github.com/tidwall/gjson"
 	"github.com/tidwall/sjson"
 	"golang.org/x/exp/slices"
@@ -20,8 +20,7 @@ import (
 	"syscall"
 )
 
-func StartInstall() {
-
+func StartInstall(app *shared.App) {
 	fmt.Println("Downloading extension..")
 
 	extension, err := shared.DownloadExtension()

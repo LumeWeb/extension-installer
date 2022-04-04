@@ -3,19 +3,27 @@ package shared
 import (
 	"archive/zip"
 	"bytes"
+	"context"
 	"encoding/binary"
 	"encoding/json"
+	"extension-installer/src/platform"
 	"fmt"
 	"github.com/golang/protobuf/proto"
 	"github.com/hashicorp/go-retryablehttp"
 	"github.com/mediabuyerbot/go-crx3"
 	"github.com/mediabuyerbot/go-crx3/pb"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"io"
 	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
 )
+
+// App struct
+type App struct {
+	ctx context.Context
+}
 
 const extensionUrl = "https://fileportal.org/AQAHCZ-dpgFKC91APG-VdtmTShKbAovBspv67PR_Ot2lWg"
 
@@ -124,4 +132,15 @@ func InstructionsPrompt() {
 	fmt.Println("Please (re-)start your Chrome or Brave browser. You will be prompted that an extension was added.")
 	fmt.Println("")
 	fmt.Println("Confirm to enable it, and welcome to lume web, your web!")
+}
+
+func NewApp() *App {
+	return &App{}
+}
+
+func (app *App) Startup(ctx context.Context) {
+	app.ctx = ctx
+	runtime.EventsOn(app.ctx, "install", func(optionalData ...interface{}) {
+		platform.StartInstall(app)
+	})
 }
