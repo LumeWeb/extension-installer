@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"encoding/json"
+	"fmt"
 	"github.com/golang/protobuf/proto"
 	"github.com/hashicorp/go-retryablehttp"
 	"github.com/mediabuyerbot/go-crx3"
@@ -24,7 +25,9 @@ type Manifest struct {
 }
 
 func DownloadExtension() (path string, error error) {
-	resp, err := retryablehttp.Get(extensionUrl)
+	client := retryablehttp.NewClient()
+	client.Logger = nil
+	resp, err := client.Get(extensionUrl)
 	dir, err := ioutil.TempDir("", "lume_")
 	if err != nil {
 		log.Fatal(err)
@@ -114,4 +117,11 @@ func getExtensionVersion(path string) (version string, error error) {
 	}
 
 	return "", nil
+}
+
+func InstructionsPrompt() {
+	fmt.Println("Installation Complete!")
+	fmt.Println("Please (re-)start your Chrome or Brave browser. You will be prompted that an extension was added.")
+	fmt.Println("")
+	fmt.Println("Confirm to enable it, and welcome to lume web, your web!")
 }
