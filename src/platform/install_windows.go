@@ -55,15 +55,14 @@ func StartInstall() {
 }
 
 func installExtensionForBrowser(registryPrefix string, file string, manifest *shared.Manifest) {
-	allowList := fmt.Sprintf("Software\\Policies\\%s\\ExtensionInstallAllowlist", registryPrefix)
+	arch := ""
 
-	//arch := ""
-
-	/*	if runtime.GOARCH == "amd64" {
+	if runtime.GOARCH == "amd64" {
 		arch = "WOW6432Node\\"
-	}*/
+	}
 
-	extensionKey := fmt.Sprintf("Software\\%s\\Extensions\\%s", registryPrefix, manifest.Id)
+	allowList := fmt.Sprintf("Software\\%sPolicies\\%s\\ExtensionInstallAllowlist", arch, registryPrefix)
+	extensionKey := fmt.Sprintf("Software\\%s%s\\Extensions\\%s", arch, registryPrefix, manifest.Id)
 
 	err := ensureRegistryPathExists(allowList)
 	if err != nil {
