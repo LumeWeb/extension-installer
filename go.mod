@@ -8,13 +8,15 @@ require (
 	github.com/golang/protobuf v1.5.2
 	github.com/hashicorp/go-retryablehttp v0.7.0
 	github.com/mediabuyerbot/go-crx3 v1.3.1
+	github.com/sqweek/dialog v0.0.0-20220227145630-7a1c9e333fcf
 	github.com/tidwall/gjson v1.14.0
 	github.com/tidwall/sjson v1.2.4
 	golang.org/x/exp v0.0.0-20220328175248-053ad81199eb
-	golang.org/x/sys v0.0.0-20220114195835-da31bd327af9
+	golang.org/x/sys v0.0.0-20220405210540-1e041c57c461
 )
 
 require (
+	github.com/TheTitanrain/w32 v0.0.0-20180517000239-4f5cfb03fabf // indirect
 	github.com/andybalholm/brotli v1.0.2 // indirect
 	github.com/fasthttp/websocket v0.0.0-20200320073529-1554a54587ab // indirect
 	github.com/gabriel-vasile/mimetype v1.3.1 // indirect

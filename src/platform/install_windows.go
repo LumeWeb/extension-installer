@@ -15,9 +15,8 @@ import (
 	"strings"
 )
 
-func StartInstall(app *App) {
-	currentApp = app
-	updateStatus("Downloading extension..")
+func StartInstall() {
+	updateStatus(STATUS_DOWNLOADING)
 
 	extension, err := DownloadExtension()
 	if err != nil {
@@ -175,4 +174,12 @@ func fileExists(name string) (bool, error) {
 		return false, nil
 	}
 	return err == nil, err
+}
+
+func IsAdmin() bool {
+	return true
+}
+
+func ReLaunchAsAdmin() {
+
 }

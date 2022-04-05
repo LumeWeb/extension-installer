@@ -9,6 +9,7 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/options/mac"
 	"github.com/wailsapp/wails/v2/pkg/options/windows"
 	"log"
+	"os"
 )
 
 //go:embed frontend/dist
@@ -18,6 +19,12 @@ var assets embed.FS
 var icon []byte
 
 func main() {
+
+	if !platform.IsAdmin() {
+		platform.ReLaunchAsAdmin()
+		os.Exit(0)
+	}
+
 	// Create an instance of the app structure
 	app := platform.NewApp()
 

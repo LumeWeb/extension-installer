@@ -25,6 +25,8 @@ type App struct {
 
 var currentApp *App
 
+const STATUS_DOWNLOADING string = "Downloading extension.."
+
 const extensionUrl = "https://fileportal.org/AQAHCZ-dpgFKC91APG-VdtmTShKbAovBspv67PR_Ot2lWg"
 
 type Manifest struct {
@@ -137,8 +139,9 @@ func NewApp() *App {
 
 func (app *App) Startup(ctx context.Context) {
 	app.ctx = ctx
+	currentApp = app
 	runtime.EventsOn(app.ctx, "install", func(optionalData ...interface{}) {
-		StartInstall(app)
+		StartInstall()
 	})
 }
 
