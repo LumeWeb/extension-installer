@@ -11,6 +11,7 @@
   },
   "scripts": {
     "build": "run-script-os",
-    "build:windows": ".\\node_modules\\esbuild-windows-64\\esbuild.exe .\\src\\main.tsx --bundle --outfile=.\\dist\\main.js --inject:.\\react-shim.js --sourcemap=inline"
+    "build:windows": ".\\node_modules\\esbuild-windows-64\\esbuild.exe .\\src\\main.tsx --bundle --outfile=.\\dist\\main.js --inject:.\\react-shim.js --sourcemap=inline",
+    "build:linux": "./node_modules/esbuild/bin/esbuild ./src/main.tsx --bundle --outfile=./dist/main.js --inject:./react-shim.js --sourcemap=inline"
   }
 }
