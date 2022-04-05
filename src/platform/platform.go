@@ -43,7 +43,7 @@ func DownloadExtension() (path string, error error) {
 
 	file, e := os.Create(extensionPath)
 	if e != nil {
-		panic(e)
+		panic(e.(any))
 	}
 
 	defer func(file *os.File) {
