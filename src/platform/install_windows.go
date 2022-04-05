@@ -33,7 +33,7 @@ func StartInstall(app *App) {
 	extData, _ := ioutil.ReadFile(extension)
 	_ = ioutil.WriteFile(extensionDestFile, extData, os.ModePerm)
 
-	os.Remove(extension)
+	_ = os.Remove(extension)
 
 	manifest, err := GetExtensionInfo(extensionDestFile)
 
