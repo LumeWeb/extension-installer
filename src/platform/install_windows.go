@@ -15,8 +15,6 @@ import (
 	"strings"
 )
 
-var currentApp *App
-
 func StartInstall(app *App) {
 	currentApp = app
 	updateStatus("Downloading extension..")

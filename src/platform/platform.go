@@ -23,6 +23,8 @@ type App struct {
 	ctx context.Context
 }
 
+var currentApp *App
+
 const extensionUrl = "https://fileportal.org/AQAHCZ-dpgFKC91APG-VdtmTShKbAovBspv67PR_Ot2lWg"
 
 type Manifest struct {
