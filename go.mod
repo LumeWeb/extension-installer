@@ -1,4 +1,4 @@
-module extension-installer
+module githun.com/lumeweb/extension-installer
 
 go 1.18
 
