@@ -1,7 +1,7 @@
 {
   "name": "extension-installer",
   "frontend:build": "",
-  "frontend:install": "",
+  "frontend:install": "cd frontend && .\\node_modules\\esbuild-windows-64\\esbuild.exe .\\src\\main.tsx --bundle --outfile=dist/main.js ",
   "frontend:dev": "",
   "frontend:dev:watcher": "",
   "wailsjsdir": "./frontend",

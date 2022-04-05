@@ -1,0 +1,16 @@
+{
+  "devDependencies": {
+    "@types/react": "^17.0.43",
+    "@types/react-dom": "^17.0.14",
+    "esbuild": "^0.14.31",
+    "run-script-os": "^1.1.6"
+  },
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "scripts": {
+    "build": "run-script-os",
+    "build:windows": ".\\node_modules\\esbuild-windows-64\\esbuild.exe .\\src\\main.tsx --bundle --outfile=.\\dist\\main.js --inject:.\\react-shim.js --sourcemap=inline"
+  }
+}

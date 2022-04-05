@@ -1,29 +1,27 @@
 package platform
 
 import (
-	"bufio"
-	"extension-installer/src/shared"
 	"fmt"
-	"github.com/admin100/util/console"
 	"github.com/tidwall/gjson"
 	"github.com/tidwall/sjson"
 	"golang.org/x/exp/slices"
-	"golang.org/x/sys/windows"
 	"golang.org/x/sys/windows/registry"
 	"io/fs"
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"runtime"
+	sysruntime "runtime"
 	"strconv"
 	"strings"
-	"syscall"
 )
 
-func StartInstall(app *shared.App) {
-	fmt.Println("Downloading extension..")
+var currentApp *App
 
-	extension, err := shared.DownloadExtension()
+func StartInstall(app *App) {
+	currentApp = app
+	updateStatus("Downloading extension..")
+
+	extension, err := DownloadExtension()
 	if err != nil {
 		return
 	}
@@ -37,13 +35,13 @@ func StartInstall(app *shared.App) {
 
 	os.Remove(extension)
 
-	manifest, err := shared.GetExtensionInfo(extensionDestFile)
+	manifest, err := GetExtensionInfo(extensionDestFile)
 
 	if err != nil {
 		return
 	}
 
-	fmt.Sprintf("Installing extension version %s..\n", manifest.Version)
+	updateStatus(fmt.Sprintf("Installing extension version %s..\n", manifest.Version))
 
 	installExtensionForBrowser("Google\\Chrome", extensionDestFile, manifest)
 	installExtensionForBrowser("BraveSoftware\\Brave", extensionDestFile, manifest)
@@ -51,15 +49,15 @@ func StartInstall(app *shared.App) {
 	deleteProfileUninstallSetting(manifest.Id, "Google", "Chrome")
 	deleteProfileUninstallSetting(manifest.Id, "BraveSoftware", "Brave-Browser")
 
-	shared.InstructionsPrompt()
-	input := bufio.NewScanner(os.Stdin)
-	input.Scan()
+	setInstallState(2)
+
+	updateStatus("Done")
 }
 
-func installExtensionForBrowser(registryPrefix string, file string, manifest *shared.Manifest) {
+func installExtensionForBrowser(registryPrefix string, file string, manifest *Manifest) {
 	arch := ""
 
-	if runtime.GOARCH == "amd64" {
+	if sysruntime.GOARCH == "amd64" {
 		arch = "WOW6432Node\\"
 	}
 
@@ -179,34 +177,4 @@ func fileExists(name string) (bool, error) {
 		return false, nil
 	}
 	return err == nil, err
-}
-func SetConsoleTitle(title string) {
-	console.SetConsoleTitle("Lume Web Extension Installer")
-}
-
-func IsRunningAsAdmin() bool {
-	_, err := os.Open("\\\\.\\PHYSICALDRIVE0")
-	if err != nil {
-		return false
-	}
-	return true
-}
-
-func RunAsAdmin() {
-	verb := "runas"
-	exe, _ := os.Executable()
-	cwd, _ := os.Getwd()
-	args := strings.Join(os.Args[1:], " ")
-
-	verbPtr, _ := syscall.UTF16PtrFromString(verb)
-	exePtr, _ := syscall.UTF16PtrFromString(exe)
-	cwdPtr, _ := syscall.UTF16PtrFromString(cwd)
-	argPtr, _ := syscall.UTF16PtrFromString(args)
-
-	var showCmd int32 = 1 //SW_NORMAL
-
-	err := windows.ShellExecute(0, verbPtr, exePtr, argPtr, cwdPtr, showCmd)
-	if err != nil {
-		fmt.Println(err)
-	}
 }

@@ -1,4 +1,4 @@
-package shared
+package platform
 
 import (
 	"archive/zip"
@@ -6,8 +6,6 @@ import (
 	"context"
 	"encoding/binary"
 	"encoding/json"
-	"extension-installer/src/platform"
-	"fmt"
 	"github.com/golang/protobuf/proto"
 	"github.com/hashicorp/go-retryablehttp"
 	"github.com/mediabuyerbot/go-crx3"
@@ -128,10 +126,7 @@ func getExtensionVersion(path string) (version string, error error) {
 }
 
 func InstructionsPrompt() {
-	fmt.Println("Installation Complete!")
-	fmt.Println("Please (re-)start your Chrome or Brave browser. You will be prompted that an extension was added.")
-	fmt.Println("")
-	fmt.Println("Confirm to enable it, and welcome to lume web, your web!")
+	sendCommand("finished")
 }
 
 func NewApp() *App {
@@ -141,6 +136,17 @@ func NewApp() *App {
 func (app *App) Startup(ctx context.Context) {
 	app.ctx = ctx
 	runtime.EventsOn(app.ctx, "install", func(optionalData ...interface{}) {
-		platform.StartInstall(app)
+		StartInstall(app)
 	})
+}
+
+func updateStatus(status string) {
+	sendCommand("status", status)
+}
+
+func setInstallState(state int) {
+	sendCommand("setInstallState", state)
+}
+func sendCommand(status string, args ...interface{}) {
+	runtime.EventsEmit(currentApp.ctx, status, args...)
 }

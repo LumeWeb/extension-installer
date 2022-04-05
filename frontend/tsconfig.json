@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
+    "sourceMap": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "typeRoots": ["node_modules/@types", "./wailsjs"],
+    "moduleResolution": "node",
+    "declaration": true,
+    "declarationMap": true,
+    "declarationDir": "./dist",
+    "allowJs": true,
+    "importsNotUsedAsValues": "remove",
+    "jsx": "react"
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": ["src"]
+}

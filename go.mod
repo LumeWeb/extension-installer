@@ -1,18 +1,16 @@
 module extension-installer
 
-go 1.17
+go 1.18
 
 require github.com/wailsapp/wails/v2 v2.0.0-beta.34
 
 require (
-	github.com/admin100/util v0.0.0-20140530033631-049b6f70d185
 	github.com/golang/protobuf v1.5.2
 	github.com/hashicorp/go-retryablehttp v0.7.0
 	github.com/mediabuyerbot/go-crx3 v1.3.1
 	github.com/tidwall/gjson v1.14.0
 	github.com/tidwall/sjson v1.2.4
 	golang.org/x/exp v0.0.0-20220328175248-053ad81199eb
-	golang.org/x/net v0.0.0-20211015210444-4f30a5c0130f
 	golang.org/x/sys v0.0.0-20220114195835-da31bd327af9
 )
 
@@ -44,5 +42,6 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.28.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
+	golang.org/x/net v0.0.0-20211015210444-4f30a5c0130f // indirect
 	google.golang.org/protobuf v1.26.0 // indirect
 )

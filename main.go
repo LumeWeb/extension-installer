@@ -2,7 +2,7 @@ package main
 
 import (
 	"embed"
-	"extension-installer/src/shared"
+	"extension-installer/src/platform"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/logger"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -11,7 +11,7 @@ import (
 	"log"
 )
 
-//go:embed frontend/src
+//go:embed frontend/dist
 var assets embed.FS
 
 //go:embed build/appicon.png
@@ -19,17 +19,17 @@ var icon []byte
 
 func main() {
 	// Create an instance of the app structure
-	app := shared.NewApp()
+	app := platform.NewApp()
 
 	// Create application with options
 	err := wails.Run(&options.App{
 		Title:             "Lume Web Extension Installer",
-		Width:             1024,
-		Height:            768,
-		MinWidth:          1024,
-		MinHeight:         768,
-		MaxWidth:          1280,
-		MaxHeight:         800,
+		Width:             500,
+		Height:            500,
+		MinWidth:          500,
+		MinHeight:         500,
+		MaxWidth:          500,
+		MaxHeight:         500,
 		DisableResize:     false,
 		Fullscreen:        false,
 		Frameless:         false,
