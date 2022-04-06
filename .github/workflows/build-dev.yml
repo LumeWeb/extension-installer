@@ -26,10 +26,11 @@ jobs:
           run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
         - name: Build app
           run: |
+              $env:SHORT_SHA=$($env:GITHUB_SHA[1..8] | Out-String -NoNewline -)
               New-Item -ItemType SymbolicLink -Target "$PWD" -Path "$env:GOROOT\src\extension-installer"
               wails build
         - name: Add SHORT_SHA env property with commit short sha
-          run: $env:SHORT_SHA=$($env:GITHUB_SHA[1..8] | Out-String -NoNewline)
+          run: echo "SHORT_SHA=$($env:GITHUB_SHA[1..8] | out-string -nonewline)" |  Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
         - name: Publish Build
           uses: softprops/action-gh-release@v0.1.14
           with:
