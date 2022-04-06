@@ -29,7 +29,7 @@ jobs:
               New-Item -ItemType SymbolicLink -Target "$PWD" -Path "$env:GOROOT\src\extension-installer"
               wails build
         - name: Add SHORT_SHA env property with commit short sha
-          run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+          run: $env:SHORT_SHA=$($env:GITHUB_SHA[1..8] | Out-String -NoNewline)
         - name: Publish Build
           uses: softprops/action-gh-release@v0.1.14
           with:
