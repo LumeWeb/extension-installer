@@ -26,8 +26,8 @@ jobs:
           run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
         - name: Build app
           run: |
-          mklink /D $CWD $GOROOT\src\extension-installer
-          wails build
+              mklink /D $CWD $GOROOT\src\extension-installer
+              wails build
         - name: Add SHORT_SHA env property with commit short sha
           run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
         - name: Publish Build
