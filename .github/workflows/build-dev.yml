@@ -1,0 +1,37 @@
+name: Build Development Installer
+on:
+    push:
+        branches: [master]
+        tags-ignore:
+            - "**"
+jobs:
+    build:
+        strategy:
+            matrix:
+                platform: [ windows-latest ]
+                go-version: [1.18]
+        runs-on: ${{ matrix.platform }}
+        steps:
+        - uses: actions/checkout@v2
+        - name: Install Go
+          uses: actions/setup-go@v2
+          with:
+              go-version: ${{ matrix.go-version }}
+        - name: setup node
+          uses: actions/setup-node@v2
+          with:
+              node-version: 16
+          run: cd frontend && npm install && npm run build
+        - name: Get Wails
+          run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
+        - name: Build app
+          run: wails build
+        - name: Add SHORT_SHA env property with commit short sha
+          run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+        - name: Publish Build
+              uses: softprops/action-gh-release@v0.1.14
+              with:
+                  prerelease: true
+                  files: "build/bin/lumeweb-extension-installer.exe"
+                  tag_name: "dev-${{ env.SHORT_SHA }}"
+                  name: "dev-${{ env.SHORT_SHA }}"
