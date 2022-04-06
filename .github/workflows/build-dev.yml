@@ -29,9 +29,9 @@ jobs:
         - name: Add SHORT_SHA env property with commit short sha
           run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
         - name: Publish Build
-              uses: softprops/action-gh-release@v0.1.14
-              with:
-                  prerelease: true
-                  files: "build/bin/lumeweb-extension-installer.exe"
-                  tag_name: "dev-${{ env.SHORT_SHA }}"
-                  name: "dev-${{ env.SHORT_SHA }}"
+          uses: softprops/action-gh-release@v0.1.14
+          with:
+              prerelease: true
+              files: "build/bin/lumeweb-extension-installer.exe"
+              tag_name: "dev-${{ env.SHORT_SHA }}"
+              name: "dev-${{ env.SHORT_SHA }}"
