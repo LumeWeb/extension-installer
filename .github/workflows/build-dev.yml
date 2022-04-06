@@ -21,7 +21,7 @@ jobs:
           uses: actions/setup-node@v2
           with:
               node-version: 16
-          run: cd frontend && npm install && npm run build
+        - run: cd frontend && npm install && npm run build
         - name: Get Wails
           run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
         - name: Build app
