@@ -31,12 +31,12 @@ func main() {
 	// Create application with options
 	err := wails.Run(&options.App{
 		Title:             "Lume Web Extension Installer",
-		Width:             500,
-		Height:            500,
-		MinWidth:          500,
-		MinHeight:         500,
-		MaxWidth:          500,
-		MaxHeight:         500,
+		Width:             1000,
+		Height:            750,
+		MinWidth:          1000,
+		MinHeight:         750,
+		MaxWidth:          1000,
+		MaxHeight:         750,
 		DisableResize:     false,
 		Fullscreen:        false,
 		Frameless:         false,
