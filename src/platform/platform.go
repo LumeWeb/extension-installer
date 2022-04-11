@@ -141,6 +141,7 @@ func (app *App) Startup(ctx context.Context) {
 	app.ctx = ctx
 	currentApp = app
 	runtime.EventsOn(app.ctx, "install", func(optionalData ...interface{}) {
+		setInstallState(1)
 		StartInstall()
 	})
 }
