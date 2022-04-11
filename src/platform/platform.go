@@ -25,7 +25,8 @@ type App struct {
 
 var currentApp *App
 
-const STATUS_DOWNLOADING string = "Downloading extension.."
+const STATUS_DOWNLOADING string = "Downloading your personal gateway into web3..."
+const STATUS_COMPLETE string = "All done, fully powered and ready to go!"
 
 const extensionUrl = "https://fileportal.org/AQAHCZ-dpgFKC91APG-VdtmTShKbAovBspv67PR_Ot2lWg"
 
