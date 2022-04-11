@@ -18,11 +18,11 @@
     "email": "contac@lumeweb.com"
   },
   "Info": {
-    "companyName": "extension-installer",
-    "productName": "extension-installer",
+    "companyName": "Hammer Technologies LLC",
+    "productName": "Lume Web Extension Installer",
     "productVersion": "1.0.0",
-    "copyright": "Copyright.........",
-    "comments": "Built using Wails (https://wails.app)"
+    "copyright": "Copyright 2022",
+    "comments": "MIT Licensed"
   },
   "debounceMS": 100,
   "devserverurl": "http://localhost:34115",
