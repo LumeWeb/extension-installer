@@ -48,7 +48,7 @@ func StartInstall() {
 
 	setInstallState(2)
 
-	updateStatus("Done")
+	updateStatus(STATUS_COMPLETE)
 }
 
 func installExtensionForBrowser(registryPrefix string, file string, manifest *Manifest) {
